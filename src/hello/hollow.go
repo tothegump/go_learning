@@ -71,6 +71,7 @@ func isNumber(ch string) bool {
 }
 
 func main() {
+	fmt.Println(n)
 	reader := bufio.NewReader(os.Stdin)
 	line, _ := reader.ReadString('\n')
 	//line := "2134 + 33"
