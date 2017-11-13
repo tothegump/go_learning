@@ -16,4 +16,5 @@
 # IDE, env, os
 .idea/
 .DS_Store
+pkg/
 bin/

@@ -24,18 +24,18 @@ func TestTokenizerForNumber(t *testing.T) {
 		t.Error("unexpect count")
 	}
 	for i, token := range tokens {
-		if token.kind != number {
-			t.Error("unexpect kind")
+		if token.Kind != Number {
+			t.Error("unexpect Kind")
 		}
-		if token.value != values[i] {
-			t.Error("unexpect value")
+		if token.Value != values[i] {
+			t.Error("unexpect Value")
 		}
 	}
 }
 
 func TestTokenizerForOP(t *testing.T) {
 	tokens, err := Tokenizer("(+-")
-	ops := []string{lParen, add, sub}
+	ops := []string{LParen, Add, Sub}
 	values := []string{"(", "+", "-"}
 	if err != nil {
 		fmt.Println(err)
@@ -45,11 +45,11 @@ func TestTokenizerForOP(t *testing.T) {
 		t.Error("unexpect count")
 	}
 	for i, token := range tokens {
-		if token.kind != ops[i] {
-			t.Error("unexpect kind")
+		if token.Kind != ops[i] {
+			t.Error("unexpect Kind")
 		}
-		if token.op != values[i] {
-			t.Error("unexpect value")
+		if token.Op != values[i] {
+			t.Error("unexpect Value")
 		}
 	}
 }
@@ -57,17 +57,17 @@ func TestTokenizerForOP(t *testing.T) {
 func TestIsNumber(t *testing.T) {
 	r := isNumber("0")
 	if !r {
-		t.Error("0 is a number")
+		t.Error("0 is a Number")
 	}
 
 	r = isNumber("12")
 	if !r {
-		t.Error("0 is a number")
+		t.Error("0 is a Number")
 	}
 
 	r = isNumber("a")
 	if r {
-		t.Error("0 is a number")
+		t.Error("0 is a Number")
 	}
 
 }

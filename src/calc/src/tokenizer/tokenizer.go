@@ -15,19 +15,19 @@ const (
 )
 
 const (
-	add    = "ADD"
-	sub    = "SUB"
-	mul    = "MUL"
-	div    = "DIV"
-	lParen = "L_PAREN"
-	rParen = "R_PAREN"
-	number = "NUM"
+	Add    = "ADD"
+	Sub    = "SUB"
+	Mul    = "MUL"
+	Div    = "DIV"
+	LParen = "L_PAREN"
+	RParen = "R_PAREN"
+	Number = "NUM"
 )
 
 
 type Token struct {
-	kind, op string
-	value float64
+	Kind, Op string
+	Value    float64
 }
 
 
@@ -45,43 +45,43 @@ func Tokenizer(line string) ([]Token, error) {
 		switch ch {
 		case lParenLabel:
 			tokens = append(tokens, Token{
-				kind: lParen,
-				op:   ch,
+				Kind: LParen,
+				Op:   ch,
 			})
 			current ++
 			continue
 		case rParenLabel:
 			tokens = append(tokens, Token{
-				kind: rParen,
-				op:   ch,
+				Kind: RParen,
+				Op:   ch,
 			})
 			current ++
 			continue
 		case addLabel:
 			tokens = append(tokens, Token{
-				kind: add,
-				op:   ch,
+				Kind: Add,
+				Op:   ch,
 			})
 			current ++
 			continue
 		case subLabel:
 			tokens = append(tokens, Token{
-				kind: sub,
-				op: ch,
+				Kind: Sub,
+				Op:   ch,
 			})
 			current ++
 			continue
 		case mulLabel:
 			tokens = append(tokens, Token{
-				kind: mul,
-				op: ch,
+				Kind: Mul,
+				Op:   ch,
 			})
 			current ++
 			continue
 		case divLabel:
 			tokens = append(tokens, Token{
-				kind: div,
-				op: ch,
+				Kind: Div,
+				Op:   ch,
 			})
 			current ++
 			continue
@@ -109,8 +109,8 @@ func Tokenizer(line string) ([]Token, error) {
 				return nil, err
 			}
 			tokens = append(tokens, Token{
-				kind:  number,
-				value: numValue,
+				Kind:  Number,
+				Value: numValue,
 			})
 			continue
 		}
