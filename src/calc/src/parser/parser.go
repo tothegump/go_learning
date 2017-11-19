@@ -20,27 +20,29 @@ func parseExpression() (result float64, err error) {
 func parseTerm() (result float64, err error) {
 	var LNumber, RNumber float64
 	LNumber, err = parsePrimaryExpression()
-	current ++
-	if current >= len(tokens) {
-		return LNumber, nil
-	}
-	opToken := tokens[current]
-	current ++
-	RNumber, err = parsePrimaryExpression()
-	switch opToken.Kind {
-	case tokenizer.Add:
-		return LNumber + RNumber, nil
-	case tokenizer.Sub:
-		return LNumber - RNumber, nil
-	case tokenizer.Mul:
-		return LNumber * RNumber, nil
-	case tokenizer.Div:
-		if RNumber == 0.0 {
-			return 0.0, errors.New("(╯‵□′)╯︵┻━┻ divided by zero")
+	for true {
+		current ++
+		if current >= len(tokens) {
+			return LNumber, nil
 		}
-		return LNumber / RNumber, nil
+		opToken := tokens[current]
+		if opToken.Kind != tokenizer.Mul && opToken.Kind != tokenizer.Div {
+			current --
+			return LNumber, nil
+		}
+		current ++
+		RNumber, err = parsePrimaryExpression()
+		switch opToken.Kind {
+		case tokenizer.Mul:
+			LNumber *= RNumber
+		case tokenizer.Div:
+			if RNumber == 0.0 {
+				return 0.0, errors.New("(╯‵□′)╯︵┻━┻ divided by zero")
+			}
+			LNumber /= RNumber
+		}
 	}
-	return
+	return 0.0, errors.New("unknown error")
 }
 
 func parsePrimaryExpression() (result float64, err error) {

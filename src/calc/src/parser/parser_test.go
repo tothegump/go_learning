@@ -6,12 +6,12 @@ import (
 
 
 func TestTerm(t *testing.T) {
-	extractTokensFromLine("34.3 + 5")
+	extractTokensFromLine("24 * 9 / 6")
 	r, e := parseTerm()
 	if e != nil {
 		t.Error(e)
 	}
-	if r != 39.3 {
+	if r != 36.0 {
 		t.Error("compute error")
 	}
 }
