@@ -2,8 +2,20 @@ package parser
 
 import (
 	"testing"
+	"fmt"
 )
 
+func TestExpression(t *testing.T) {
+	extractTokensFromLine("24 + 9 - 6 * 2 / 3 + 100")
+	r, e := parseExpression()
+	if e != nil {
+		t.Error(e)
+	}
+	fmt.Println(r)
+	if r != 129.0 {
+		t.Error("compute error")
+	}
+}
 
 func TestTerm(t *testing.T) {
 	extractTokensFromLine("24 * 9 / 6")

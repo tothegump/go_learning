@@ -14,7 +14,32 @@ func extractTokensFromLine(line string) {
 }
 
 func parseExpression() (result float64, err error) {
-	return
+	var LNumber, RNumber float64
+	LNumber, err = parseTerm()
+	for true {
+		current ++
+		if current >= len(tokens) {
+			current --
+			return LNumber, nil
+		}
+		opToken := tokens[current]
+		if opToken.Kind != tokenizer.Add && opToken.Kind != tokenizer.Sub {
+			current --
+			return LNumber, nil
+		}
+		current ++
+		RNumber, err = parseTerm()
+		switch opToken.Kind {
+		case tokenizer.Add:
+			LNumber += RNumber
+		case tokenizer.Sub:
+			LNumber -= RNumber
+		default:
+			current --
+			break
+		}
+	}
+	return LNumber, nil
 }
 
 func parseTerm() (result float64, err error) {
@@ -23,6 +48,7 @@ func parseTerm() (result float64, err error) {
 	for true {
 		current ++
 		if current >= len(tokens) {
+			current --
 			return LNumber, nil
 		}
 		opToken := tokens[current]
