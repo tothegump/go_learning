@@ -6,13 +6,13 @@ import (
 )
 
 func TestExpression(t *testing.T) {
-	extractTokensFromLine("24 + 9 - 6 * 2 / 3 + 100")
+	extractTokensFromLine("8 + (24 + 9 - 6 * 2) / 7 + 100")
 	r, e := parseExpression()
 	if e != nil {
 		t.Error(e)
 	}
 	fmt.Println(r)
-	if r != 129.0 {
+	if r != 111.0 {
 		t.Error("compute error")
 	}
 }
@@ -37,7 +37,7 @@ func TestTermFailed(t *testing.T) {
 }
 
 func TestPrimaryExpression(t *testing.T) {
-	extractTokensFromLine("34.3")
+	extractTokensFromLine("(34.3 - 9 + 10 -1)")
 	r, e := parsePrimaryExpression()
 	if e != nil {
 		t.Error(e)

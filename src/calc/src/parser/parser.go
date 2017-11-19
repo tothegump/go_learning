@@ -75,6 +75,18 @@ func parsePrimaryExpression() (result float64, err error) {
 	token := tokens[current]
 	if token.Kind == tokenizer.Number {
 		return token.Value, nil
+	} else if token.Kind == tokenizer.LParen {
+		current ++
+		number, err := parseExpression()
+		if err != nil {
+			return 0.0, err
+		}
+		current ++
+		rp := tokens[current]
+		if rp.Kind != tokenizer.RParen {
+			return 0.0, errors.New("error parent")
+		}
+		return number, nil
 	}
 	return 0.0, errors.New("primary expression is not a number")
 }
